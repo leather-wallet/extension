@@ -38,7 +38,7 @@ export const ExampleOne: Story = {
           </Approver.Subheader>
           <ItemInteractive>
             <ItemLayout
-              flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+              img={<Circle size="40px" backgroundColor="ink.border-default" />}
               titleLeft={<Box width="180px" height="14px" backgroundColor="ink.border-default" />}
               titleRight={<Box width="50px" height="14px" backgroundColor="ink.border-default" />}
               captionLeft={<Box width="70px" height="12px" backgroundColor="ink.border-default" />}
@@ -62,7 +62,7 @@ export const ExampleOne: Story = {
             titleRight="100 MICA"
             captionLeft="SIP-10"
             captionRight="$894,891"
-            flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+            img={<Circle size="40px" backgroundColor="ink.border-default" />}
           />
         </Approver.Section>
         <Approver.Advanced>
@@ -74,7 +74,7 @@ export const ExampleOne: Story = {
                 titleRight="Mr. Clicky"
                 captionLeft="Interactive item"
                 captionRight="Click me"
-                flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+                img={<Circle size="40px" backgroundColor="ink.border-default" />}
               />
             </ItemInteractive>
           </Approver.Section>
