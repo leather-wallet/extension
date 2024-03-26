@@ -6,6 +6,6 @@ interface StacksBalanceListItemProps {
   address: string;
 }
 export function StacksBalanceListItem({ address }: StacksBalanceListItemProps) {
-  const balaceDetails = useStxBalance();
-  return <StacksBalanceListItemLayout address={address} {...balaceDetails} />;
+  const balanceDetails = useStxBalance();
+  return <StacksBalanceListItemLayout address={address} {...balanceDetails} />;
 }

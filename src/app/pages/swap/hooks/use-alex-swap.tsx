@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { useAsync } from 'react-async-hook';
 
 import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
@@ -10,7 +9,8 @@ import { createMoney } from '@shared/models/money.model';
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { useSwappableCurrencyQuery } from '@app/query/common/alex-swaps/swappable-currency.query';
+import { useAlexLatestPricesQuery } from '@app/query/common/alex-sdk/latest-prices.query';
+import { useAlexSwappableCurrencyQuery } from '@app/query/common/alex-sdk/swappable-currency.query';
 import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -24,8 +24,8 @@ export function useAlexSwap() {
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
   const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
-  const { data: supportedCurrencies = [] } = useSwappableCurrencyQuery(alexSDK);
-  const { result: prices } = useAsync(async () => await alexSDK.getLatestPrices(), [alexSDK]);
+  const { data: supportedCurrencies = [] } = useAlexSwappableCurrencyQuery(alexSDK);
+  const { data: prices } = useAlexLatestPricesQuery(alexSDK);
   const { availableBalance: availableStxBalance } = useStxBalance();
   const account = useCurrentStacksAccount();
   const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(

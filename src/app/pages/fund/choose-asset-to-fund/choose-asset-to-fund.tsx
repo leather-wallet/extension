@@ -35,7 +35,7 @@ export function ChooseCryptoAssetToFund() {
 
   useRouteHeader(<ModalHeader hideActions onGoBack={() => navigate(RouteUrls.Home)} title=" " />);
 
-  const navigateToSendForm = useCallback(
+  const navigateToFundPage = useCallback(
     (cryptoAssetBalance: AllTransferableCryptoAssetBalances) => {
       const { asset } = cryptoAssetBalance;
 
@@ -50,7 +50,7 @@ export function ChooseCryptoAssetToFund() {
       <ChooseAssetContainer>
         <ChooseCryptoAssetLayout title="choose asset to fund">
           <CryptoAssetList
-            onItemClick={navigateToSendForm}
+            onItemClick={navigateToFundPage}
             cryptoAssetBalances={filteredCryptoAssetBalances}
           />
         </ChooseCryptoAssetLayout>
