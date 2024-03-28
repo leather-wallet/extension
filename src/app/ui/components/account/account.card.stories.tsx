@@ -21,6 +21,7 @@ export function AccountCard() {
       balance="$1,000"
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
+      isLoadingBalance={false}
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />

@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
+import { AccountBalanceShimmer } from '@app/components/account-total-balance';
 import { Link } from '@app/ui/components/link/link';
 import { ChevronDownIcon } from '@app/ui/icons';
 
@@ -12,6 +13,7 @@ interface AccountCardProps {
   children: ReactNode;
   switchAccount: ReactNode;
   toggleSwitchAccount(): void;
+  isLoadingBalance: boolean;
 }
 
 export function AccountCard({
@@ -20,6 +22,7 @@ export function AccountCard({
   switchAccount,
   toggleSwitchAccount,
   children,
+  isLoadingBalance,
 }: AccountCardProps) {
   return (
     <Flex
@@ -46,9 +49,13 @@ export function AccountCard({
         </Flex>
       </Link>
       <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
-        <styled.h1 textStyle="heading.02" mb="space.05" mt="space.04">
-          {balance}
-        </styled.h1>
+        <Box mb="space.05" mt="space.04">
+          {isLoadingBalance ? (
+            <AccountBalanceShimmer width="200px" height="38px" />
+          ) : (
+            <styled.h1 textStyle="heading.02">{balance}</styled.h1>
+          )}
+        </Box>
         {switchAccount}
         {children}
       </Flex>
