@@ -4,6 +4,7 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
+import { AccountBalanceShimmer } from '@app/components/account-total-balance';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -18,6 +19,7 @@ interface CryptoCurrencyAssetItemLayoutProps {
   address?: string;
   assetBalance: AllCryptoCurrencyAssetBalances;
   icon: React.ReactNode;
+  isLoading?: boolean;
   onClick?(): void;
   rightElement?: React.ReactNode;
   usdBalance?: string;
@@ -31,10 +33,41 @@ export function CryptoCurrencyAssetItemLayout({
   onClick,
   rightElement,
   usdBalance,
+  isLoading,
 }: CryptoCurrencyAssetItemLayoutProps) {
   const { balance, dataTestId, formattedBalance, title } =
     parseCryptoCurrencyAssetBalance(assetBalance);
 
+  const titleRight = isLoading ? (
+    <AccountBalanceShimmer width="126px" />
+  ) : rightElement ? (
+    rightElement
+  ) : (
+    <BasicTooltip
+      asChild
+      label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+      side="left"
+    >
+      <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
+        {formattedBalance.value} {additionalBalanceInfo}
+      </styled.span>
+    </BasicTooltip>
+  );
+
+  const captionRight = isLoading ? (
+    <AccountBalanceShimmer width="78px" />
+  ) : rightElement ? (
+    rightElement
+  ) : (
+    <Caption>
+      <Flex alignItems="center" gap="space.02" color="inherit">
+        <BulletSeparator>
+          <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
+          {additionalUsdBalanceInfo}
+        </BulletSeparator>
+      </Flex>
+    </Caption>
+  );
   const isInteractive = !!onClick;
 
   const content = (
@@ -42,33 +75,8 @@ export function CryptoCurrencyAssetItemLayout({
       flagImg={icon}
       titleLeft={title}
       captionLeft={balance.symbol}
-      titleRight={
-        rightElement ? (
-          rightElement
-        ) : (
-          <BasicTooltip
-            asChild
-            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-            side="left"
-          >
-            <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
-              {formattedBalance.value} {additionalBalanceInfo}
-            </styled.span>
-          </BasicTooltip>
-        )
-      }
-      captionRight={
-        !rightElement && (
-          <Caption>
-            <Flex alignItems="center" gap="space.02" color="inherit">
-              <BulletSeparator>
-                <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
-                {additionalUsdBalanceInfo}
-              </BulletSeparator>
-            </Flex>
-          </Caption>
-        )
-      }
+      titleRight={titleRight}
+      captionRight={captionRight}
     />
   );
 
