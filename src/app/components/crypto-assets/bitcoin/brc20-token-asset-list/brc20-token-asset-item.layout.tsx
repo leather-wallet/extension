@@ -6,8 +6,8 @@ import { formatBalance } from '@app/common/format-balance';
 import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface Brc20TokenAssetItemLayoutProps {
   token: Brc20Token;
@@ -20,7 +20,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
   return (
     <Pressable onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={<Brc20AvatarIcon />}
+        img={<Brc20AvatarIcon />}
         titleLeft={token.ticker}
         captionLeft="BRC-20"
         titleRight={

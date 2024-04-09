@@ -2,24 +2,24 @@ import { ReactNode } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { pressableCaptionStyles } from '@app/ui/pressable/pressable';
+import { pressableCaptionStyles } from '@app/ui/components/pressable/pressable';
 
 import { Flag } from '../flag/flag';
 
 interface ItemWithButtonsLayoutProps {
   buttons: ReactNode;
   caption: string;
-  flagImg: ReactNode;
+  img: ReactNode;
   title: string;
 }
 export function ItemLayoutWithButtons({
   buttons,
   caption,
-  flagImg,
+  img,
   title,
 }: ItemWithButtonsLayoutProps) {
   return (
-    <Flag img={flagImg}>
+    <Flag img={img}>
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Stack
           alignItems="start"

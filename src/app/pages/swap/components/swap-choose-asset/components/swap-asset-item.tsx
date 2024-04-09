@@ -7,7 +7,7 @@ import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungi
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Pressable } from '@app/ui/pressable/pressable';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;
@@ -24,7 +24,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   return (
     <Pressable data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={
+        img={
           <Avatar.Root>
             <Avatar.Image alt={fallback} src={asset.icon} />
             <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>

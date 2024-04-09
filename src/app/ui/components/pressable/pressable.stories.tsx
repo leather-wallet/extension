@@ -2,13 +2,13 @@ import { Meta, StoryObj } from '@storybook/react';
 import { styled } from 'leather-styles/jsx';
 
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
+import { Pressable as Component } from '@app/ui/components/pressable/pressable';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
-import { Pressable as Component } from '@app/ui/pressable/pressable';
 
-import { Button } from '../components/button/button';
-import { ItemLayout } from '../components/item-layout/item-layout';
-import { ItemLayoutWithButtons } from '../components/item-layout/item-layout-with-buttons';
+import { Button } from '../button/button';
+import { ItemLayout } from '../item-layout/item-layout';
+import { ItemLayoutWithButtons } from '../item-layout/item-layout-with-buttons';
 
 const meta: Meta<typeof Component> = {
   component: Component,
@@ -26,7 +26,7 @@ function ExampleInteractiveItemContent() {
   return (
     <ItemLayout
       showChevron
-      flagImg={<BtcAvatarIcon />}
+      img={<BtcAvatarIcon />}
       titleLeft="Label"
       captionLeft="Caption"
       titleRight="1,000.00 ABC"
@@ -57,7 +57,7 @@ export const Disabled: Story = {
     children: (
       <ItemLayout
         showChevron
-        flagImg={<BtcAvatarIcon />}
+        img={<BtcAvatarIcon />}
         titleLeft="Label"
         captionLeft="Caption"
         titleRight="1,000.00 ABC"
@@ -71,7 +71,7 @@ export const WithButtons: Story = {
   args: {
     children: (
       <ItemLayoutWithButtons
-        flagImg={<BtcAvatarIcon />}
+        img={<BtcAvatarIcon />}
         title="Label"
         caption="Caption"
         buttons={

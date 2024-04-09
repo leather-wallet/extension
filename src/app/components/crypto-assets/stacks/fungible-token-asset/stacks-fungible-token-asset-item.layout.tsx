@@ -5,8 +5,8 @@ import { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-bal
 import { useAlexSdkBalanceAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { parseStacksFungibleTokenAssetBalance } from './fungible-token-asset.utils';
 
@@ -25,7 +25,7 @@ export function StacksFungibleTokenAssetItemLayout({
   return (
     <Pressable data-testid={dataTestId} onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={
+        img={
           <StacksAssetAvatar
             color="white"
             gradientString={avatar}

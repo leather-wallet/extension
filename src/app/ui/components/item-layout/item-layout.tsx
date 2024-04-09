@@ -2,16 +2,19 @@ import { ReactNode, isValidElement } from 'react';
 
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { pressableCaptionStyles, pressableChevronStyles } from '@app/ui/pressable/pressable';
+import {
+  pressableCaptionStyles,
+  pressableChevronStyles,
+} from '@app/ui/components/pressable/pressable';
 
 import { CheckmarkIcon } from '../../icons/checkmark-icon';
 import { ChevronUpIcon } from '../../icons/chevron-up-icon';
-import { Flag } from '../flag/flag';
+import { Flag, type FlagProps } from '../flag/flag';
 
-interface ItemLayoutProps {
+interface ItemLayoutProps extends Omit<FlagProps, 'children'> {
   captionLeft: ReactNode;
   captionRight?: ReactNode;
-  flagImg: ReactNode;
+  img: ReactNode;
   isDisabled?: boolean;
   isSelected?: boolean;
   showChevron?: boolean;
@@ -21,14 +24,15 @@ interface ItemLayoutProps {
 export function ItemLayout({
   captionLeft,
   captionRight,
-  flagImg,
+  img,
   isSelected,
   showChevron,
   titleLeft,
   titleRight,
+  ...props
 }: ItemLayoutProps) {
   return (
-    <Flag img={flagImg} spacing="space.03">
+    <Flag img={img} spacing="space.03" {...props}>
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Stack
           alignItems="start"
