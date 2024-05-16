@@ -19,7 +19,6 @@ import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-toke
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { StxCryptoAssetItemFallback } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item-fallback';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
@@ -30,7 +29,7 @@ import { Sip10TokenAssetListUnsupported } from './stacks/sip10-token-asset-list/
 export type AssetListVariant = 'interactive' | 'read-only';
 
 interface AssetListProps {
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  onClick?(symbol: string, contractId?: string): void;
   variant?: AssetListVariant;
 }
 export function AssetList({ onClick, variant = 'read-only' }: AssetListProps) {
@@ -46,10 +45,12 @@ export function AssetList({ onClick, variant = 'read-only' }: AssetListProps) {
           <BitcoinNativeSegwitAccountLoader current>
             {nativeSegwitAccount => (
               <BtcCryptoAssetLoader address={nativeSegwitAccount.address}>
-                {(asset, isInitialLoading) => (
+                {(assetInfo, balance, marketData, isInitialLoading) => (
                   <BtcCryptoAssetItem
-                    asset={asset}
+                    assetInfo={assetInfo}
+                    balance={balance}
                     isLoading={isInitialLoading}
+                    marketData={marketData}
                     onClick={onClick}
                   />
                 )}
@@ -64,10 +65,12 @@ export function AssetList({ onClick, variant = 'read-only' }: AssetListProps) {
           >
             {nativeSegwitAccount => (
               <BtcCryptoAssetLoader address={nativeSegwitAccount.address}>
-                {(asset, isInitialLoading) => (
+                {(assetInfo, balance, marketData, isInitialLoading) => (
                   <BtcCryptoAssetItem
-                    asset={asset}
+                    assetInfo={assetInfo}
+                    balance={balance}
                     isLoading={isInitialLoading}
+                    marketData={marketData}
                     onClick={onClick}
                   />
                 )}
@@ -89,8 +92,14 @@ export function AssetList({ onClick, variant = 'read-only' }: AssetListProps) {
         {account => (
           <>
             <StxCryptoAssetLoader address={account.address}>
-              {(asset, isInitialLoading) => (
-                <StxCryptoAssetItem asset={asset} isLoading={isInitialLoading} onClick={onClick} />
+              {(assetInfo, balance, marketData, isInitialLoading) => (
+                <StxCryptoAssetItem
+                  assetInfo={assetInfo}
+                  balance={balance}
+                  isLoading={isInitialLoading}
+                  marketData={marketData}
+                  onClick={onClick}
+                />
               )}
             </StxCryptoAssetLoader>
             <Sip10TokenAssetList address={account.address} onClick={onClick} />

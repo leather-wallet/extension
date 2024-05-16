@@ -33,13 +33,14 @@ export function Brc20TokenAssetList({ assets, variant }: Brc20TokenAssetListProp
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {assets.map(asset => (
         <CryptoAssetItemLayout
-          asset={asset}
+          balance={asset.balance}
           caption={capitalize(asset.info.name)}
           icon={<Brc20AvatarIcon />}
           isLoading={isInitialLoading}
           key={asset.info.symbol}
           name={asset.info.symbol}
           onClick={hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(asset) : undefined}
+          symbol={asset.info.symbol}
         />
       ))}
     </Stack>

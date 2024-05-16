@@ -5,6 +5,7 @@ import { AccountBalanceStxKeys, type AddressBalanceResponse } from '@shared/mode
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
+import { useInitialData } from '@app/routes/initial-data-gate';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 

@@ -1,40 +1,41 @@
+import type { BtcCryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
+
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { capitalize } from '@app/common/utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import type {
-  AccountCryptoAssetWithDetails,
-  BtcAccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 interface BtcCryptoAssetItemProps {
-  asset: BtcAccountCryptoAssetWithDetails;
+  assetInfo: BtcCryptoAssetInfo;
+  balance: CryptoAssetBalance;
   isLoading: boolean;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  marketData: MarketData;
+  onClick?(symbol: string): void;
   rightElement?: React.ReactNode;
 }
 export function BtcCryptoAssetItem({
-  asset,
+  assetInfo,
+  balance,
   isLoading,
+  marketData,
   onClick,
   rightElement,
 }: BtcCryptoAssetItemProps) {
-  const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const availableBalanceAsFiat = i18nFormatCurrency(
-    baseCurrencyAmountInQuote(asset.balance.availableBalance, marketData)
+    baseCurrencyAmountInQuote(balance.availableBalance, marketData)
   );
 
   return (
     <CryptoAssetItemLayout
-      asset={asset}
+      balance={balance}
       fiatBalance={availableBalanceAsFiat}
       icon={<BtcAvatarIcon />}
       isLoading={isLoading}
-      name={capitalize(asset.info.name)}
+      name={capitalize(assetInfo.name)}
       onClick={onClick}
       rightElement={rightElement}
+      symbol={assetInfo.symbol}
     />
   );
 }

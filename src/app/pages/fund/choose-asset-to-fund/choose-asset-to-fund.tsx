@@ -12,7 +12,6 @@ import { BtcCryptoAssetLoader } from '@app/components/loaders/btc-crypto-asset-l
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { StxCryptoAssetLoader } from '@app/components/loaders/stx-crypto-asset-loader';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
@@ -21,8 +20,7 @@ export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
 
   const navigateToFund = useCallback(
-    (asset: AccountCryptoAssetWithDetails) =>
-      navigate(RouteUrls.Fund.replace(':currency', asset.info.symbol)),
+    (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),
     [navigate]
   );
 
@@ -42,11 +40,12 @@ export function ChooseCryptoAssetToFund() {
                 <BtcCryptoAssetLoader address={signer.address}>
                   {(asset, isLoading) => (
                     <CryptoAssetItemLayout
-                      asset={asset}
+                      balance={asset.balance}
                       icon={<BtcAvatarIcon />}
                       isLoading={isLoading}
                       name={capitalize(asset.info.name)}
-                      onClick={() => navigateToFund(asset)}
+                      onClick={() => navigateToFund(asset.info.symbol)}
+                      symbol={asset.info.symbol}
                     />
                   )}
                 </BtcCryptoAssetLoader>
@@ -56,11 +55,13 @@ export function ChooseCryptoAssetToFund() {
             <CurrentStacksAccountLoader>
               {account => (
                 <StxCryptoAssetLoader address={account.address}>
-                  {(asset, isInitialLoading) => (
+                  {(assetInfo, balance, marketData, isInitialLoading) => (
                     <StxCryptoAssetItem
-                      asset={asset}
+                      assetInfo={assetInfo}
+                      balance={balance}
                       isLoading={isInitialLoading}
-                      onClick={() => navigateToFund(asset)}
+                      marketData={marketData}
+                      onClick={() => navigateToFund(assetInfo.symbol)}
                     />
                   )}
                 </StxCryptoAssetLoader>
