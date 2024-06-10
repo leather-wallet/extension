@@ -18,7 +18,6 @@ const feeInputLabel = 'sats/vB';
 
 interface Props {
   onClick?(): void;
-  amount: number;
   isSendingMax: boolean;
   recipients: TransferRecipient[];
   hasInsufficientBalanceError: boolean;
@@ -29,7 +28,6 @@ interface Props {
 
 export function BitcoinCustomFeeInput({
   onClick,
-  amount,
   isSendingMax,
   recipients,
   hasInsufficientBalanceError,
@@ -44,7 +42,6 @@ export function BitcoinCustomFeeInput({
   }>(null);
 
   const getCustomFeeValues = useBitcoinCustomFee({
-    amount: createMoney(amount, 'BTC'),
     isSendingMax,
     recipients,
   });
