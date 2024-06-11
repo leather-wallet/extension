@@ -94,6 +94,7 @@ export enum RouteUrls {
 
   // Request routes bitcoin
   RpcGetAddresses = '/get-addresses',
+  RpcGetXpub = '/get-xpub',
   RpcSignPsbt = '/sign-psbt',
   RpcSignPsbtSummary = '/sign-psbt/summary',
   RpcSendTransfer = '/send-transfer',
